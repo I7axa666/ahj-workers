@@ -1,26 +1,38 @@
 import Shadow from './widgets/shadow';
 import Fetcher from './fetcher';
 
-const reloader = document.querySelector('.reload');
-const container = document.querySelector('.news');
-const shadow = Shadow.create();
+const registerServiceWorker = async () => {
+  if ('serviceWorker' in navigator) {
+    try {
+      const registration = await navigator.serviceWorker.register('./service.worker.js', {
+        scope: '/',
+      });
+      if (registration.installing) {
+        console.log('Service worker installing');
+      } else if (registration.waiting) {
+        console.log('Service worker installed');
+      } else if (registration.active) {
+        console.log('Service worker active');
+      }
+    } catch (error) {
+      console.error(`Registration failed with ${error}`);
+    }
+  }
+};
 
-container.appendChild(shadow);
+registerServiceWorker();
 
-const fetcher = new Fetcher(container, shadow);
-fetcher.getNews();
+// const reloader = document.querySelector('.reload');
+// const container = document.querySelector('.news');
+// const shadow = Shadow.create();
 
-reloader.addEventListener('click', () => {
-  container.replaceChildren();
-  container.appendChild(shadow);
-  fetcher.getNews();
-});
+// container.appendChild(shadow);
 
-// if ('serviceWorker' in navigator) {
-// 	navigator.serviceWorker.register('./service-worker.js', { scope: './' })
-// 	.then((reg) => {
-// 		console.log('registred' + reg.scope);
-// 	}).catch((error) => {
-// 		console.log('register error' + error)
-// 	});
-// }
+// const fetcher = new Fetcher(container, shadow);
+// fetcher.getNews();
+
+// reloader.addEventListener('click', () => {
+//   container.replaceChildren();
+//   container.appendChild(shadow);
+//   fetcher.getNews();
+// });

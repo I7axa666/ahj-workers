@@ -8,7 +8,10 @@
     "rules": {
       "no-plusplus": "off",
       "no-alert": "off",
-      "no-tabs": "off"
+      "no-tabs": "off",
+      "no-unused-vars": "off",
+      "no-console": "off",
+      "import/no-extraneous-dependencies": ["error", {"peerDependencies": true}]
     },
     "extends": "airbnb-base",
     "parserOptions": {

@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --mode development",
+    "start": "webpack serve --env development",
     "lint": "eslint . --fix",
-    "build": "webpack --mode production"
+    "build": "webpack --env production"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +27,7 @@
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.2",
+    "webpack-merge": "^5.10.0",
     "workbox-webpack-plugin": "^7.0.0"
   },
   "dependencies": {
