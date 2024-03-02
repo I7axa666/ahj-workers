@@ -1,13 +1,37 @@
-const { merge } = require('webpack-merge');
-const commonConfig = require('./webpack.common.config');
-const productionConfig = require('./webpack.production.config');
-const developmentConfig = require('./webpack.development.config');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = (env, args) => {
-  console.log(env);
-
-  if (env.production) {
-    return merge(commonConfig, productionConfig);
-  }
-  return merge(commonConfig, developmentConfig);
+module.exports = {
+  devtool: 'source-map',
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_models/,
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCSSExtractPlugin.loader,
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_models/,
+        loader: 'babel-loader',
+      },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+    }),
+    new MiniCSSExtractPlugin(),
+  ],
 };

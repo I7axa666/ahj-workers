@@ -1,4 +1,5 @@
 import './css/style.css';
 import './css/shadowStyle.css';
 
-import './js/app';
+import './app';
+
