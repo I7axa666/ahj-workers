@@ -1,31 +1,17 @@
-import Shadow from './js/widgets/shadow';
-import Fetcher from './js/fetcher';
+import PageRender from './js/render';
 
-// const reloader = document.querySelector('.reload');
-// const container = document.querySelector('.news');
-// const shadow = Shadow.create();
-
-// container.appendChild(shadow);
-
-// const fetcher = new Fetcher(container, shadow);
-// fetcher.getNews();
-
-// reloader.addEventListener('click', () => {
-//   container.replaceChildren();
-//   container.appendChild(shadow);
-//   fetcher.getNews();
-// });
-
+const render = new PageRender();
+render.showShadow();
+render.showNews();
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('./sw.js').then(function(registration) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').then((registration) => {
       // Успешная регистрация
-      console.log('ServiceWorker registration successful');
-    }, function(err) {
+      console.log('myServiceWorker registration successful');
+    }, (err) => {
       // При регистрации произошла ошибка
       console.log('ServiceWorker registration failed: ', err);
     });
   });
 }
-

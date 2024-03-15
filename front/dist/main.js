@@ -9,37 +9,22 @@
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _js_widgets_shadow__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/widgets/shadow */ "./src/js/widgets/shadow.js");
-/* harmony import */ var _js_fetcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/fetcher */ "./src/js/fetcher.js");
+/* harmony import */ var _js_render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/render */ "./src/js/render.js");
 
+const render = new _js_render__WEBPACK_IMPORTED_MODULE_0__["default"]();
+// render.showShadow()
 
-
-// const reloader = document.querySelector('.reload');
-// const container = document.querySelector('.news');
-// const shadow = Shadow.create();
-
-// container.appendChild(shadow);
-
-// const fetcher = new Fetcher(container, shadow);
-// fetcher.getNews();
-
-// reloader.addEventListener('click', () => {
-//   container.replaceChildren();
-//   container.appendChild(shadow);
-//   fetcher.getNews();
-// });
-
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', function() {
-//     navigator.serviceWorker.register('./sw.js').then(function(registration) {
-//       // Успешная регистрация
-//       console.log('ServiceWorker registration successful');
-//     }, function(err) {
-//       // При регистрации произошла ошибка
-//       console.log('ServiceWorker registration failed: ', err);
-//     });
-//   });
-// }
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').then(function (registration) {
+      // Успешная регистрация
+      console.log('myServiceWorker registration successful');
+    }, function (err) {
+      // При регистрации произошла ошибка
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
 
 /***/ }),
 
@@ -53,8 +38,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ Fetcher; }
 /* harmony export */ });
-/* harmony import */ var _widgets_errorMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./widgets/errorMessage */ "./src/js/widgets/errorMessage.js");
-/* harmony import */ var _widgets_news__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./widgets/news */ "./src/js/widgets/news.js");
+/* harmony import */ var _widgets_errorMessage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./widgets/errorMessage.js */ "./src/js/widgets/errorMessage.js");
+/* harmony import */ var _widgets_news_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./widgets/news.js */ "./src/js/widgets/news.js");
 
 
 class Fetcher {
@@ -76,12 +61,49 @@ class Fetcher {
       const {
         parentElement
       } = this.shadow;
-      return parentElement.appendChild(_widgets_errorMessage__WEBPACK_IMPORTED_MODULE_0__["default"].showError());
+      return parentElement.appendChild(_widgets_errorMessage_js__WEBPACK_IMPORTED_MODULE_0__["default"].showError());
     }
     this.shadow.remove();
     const newsList = JSON.parse(await result.text());
-    const news = new _widgets_news__WEBPACK_IMPORTED_MODULE_1__["default"](newsList);
+    const news = new _widgets_news_js__WEBPACK_IMPORTED_MODULE_1__["default"](newsList);
     return this.container.appendChild(news.showNews());
+  }
+}
+
+/***/ }),
+
+/***/ "./src/js/render.js":
+/*!**************************!*\
+  !*** ./src/js/render.js ***!
+  \**************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ PageRender; }
+/* harmony export */ });
+/* harmony import */ var _widgets_shadow_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./widgets/shadow.js */ "./src/js/widgets/shadow.js");
+/* harmony import */ var _fetcher_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fetcher.js */ "./src/js/fetcher.js");
+
+
+class PageRender {
+  constructor() {
+    this.reloader = document.querySelector('.reload');
+    this.container = document.querySelector('.news');
+    // this.shadow = Shadow.create();
+    // this.fetcher = new Fetcher(this.container, this.shadow);
+  }
+  showShadow() {
+
+    // this.container.appendChild(this.shadow);
+  }
+  showNews() {
+    this.fetcher.getNews();
+    this.reloader.addEventListener('click', () => {
+      this.container.replaceChildren();
+      this.container.appendChild(shadow);
+      this.fetcher.getNews();
+    });
   }
 }
 

@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -33,5 +34,10 @@ module.exports = {
       template: './src/index.html',
     }),
     new MiniCSSExtractPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: './src/sw.js', to: 'sw.js' },
+      ],
+    }),
   ],
 };
