@@ -3,7 +3,7 @@ import News from './widgets/news';
 
 export default class Fetcher {
   constructor(container, shadow) {
-    this.url = 'https://ahj-workers.onrender.com';
+    this.url = 'https://ahj-service-workers-server.onrender.com';
     // this.url = 'http://localhost:3000/index.html';
     this.shadow = shadow;
     this.container = container;
